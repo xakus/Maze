@@ -14,7 +14,8 @@ import java.util.logging.Logger;
  */
 public class Maze {
 
-    private int labSize;
+    private int labSizeW = 0;
+    private int labSizeH = 0;
     private int[][] mazeMatrix;
     private int sX = 0, sY = 0;//Переменные показываюшие место положение 
     int endX = 0, endY = 0;
@@ -28,19 +29,20 @@ public class Maze {
         this.mazeMatrix = mazeMatrix;
     }
 
-    public Maze(int lab) {
-        labSize = lab * 2 + 1;
-        mazeMatrix = new int[labSize][labSize];
+    public Maze(int labSizeW, int labSizeH) {
+        this.labSizeW = labSizeW;
+        this.labSizeH = labSizeH;
+        mazeMatrix = new int[ this.labSizeW][ this.labSizeH];
         matrixClear();
     }
 
     private void matrixClear() {
-        oldLenghgt=0;
-        lenght=0;
+        oldLenghgt = 0;
+        lenght = 0;
         endX = 0;
         endY = 0;
-        for (int i = 0; i < labSize; i++) {
-            for (int j = 0; j < labSize; j++) {
+        for (int i = 0; i < labSizeW; i++) {
+            for (int j = 0; j < labSizeH; j++) {
                 mazeMatrix[i][j] = 0;
             }
         }
@@ -50,7 +52,7 @@ public class Maze {
         matrixClear();
         do {
             try {
-                Thread.sleep(20);
+                Thread.sleep(0);
             } catch (InterruptedException ex) {
                 Logger.getLogger(LabGeneration.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -64,8 +66,8 @@ public class Maze {
 
     public synchronized void matrixRandom() {
         matrixClear();
-        for (int i = 0; i < labSize; i++) {
-            for (int j = 0; j < labSize; j++) {
+        for (int i = 0; i < labSizeH; i++) {
+            for (int j = 0; j < labSizeW; j++) {
                 try {
                     Thread.sleep(20);
                 } catch (InterruptedException ex) {
@@ -84,7 +86,7 @@ public class Maze {
                 st++;
             }
         }
-        if (x <= labSize - 2) {
+        if (x <= labSizeW - 2) {
             if (mazeMatrix[x + 2][y] == 0) {
                 st++;
             }
@@ -94,7 +96,7 @@ public class Maze {
                 st++;
             }
         }
-        if (y <= labSize - 2) {
+        if (y <= labSizeH - 2) {
             if (mazeMatrix[x][y + 2] == 0) {
                 st++;
             }
@@ -104,8 +106,8 @@ public class Maze {
 
     private boolean isEndGeneration() {//Метод проверяет конец генерации лаберинта. Конец лаберинта достигает тогда когда в матрице кончается 1
         boolean flag = true;
-        for (int i = 0; i < labSize; i++) {
-            for (int j = 0; j < labSize; j++) {
+        for (int i = 0; i < labSizeW; i++) {
+            for (int j = 0; j < labSizeH; j++) {
                 if (mazeMatrix[i][j] == 1) {
                     flag = false;
 
@@ -131,7 +133,7 @@ public class Maze {
                     }
 
                 }
-                if (sX <= labSize - 2) {
+                if (sX <= labSizeW - 2) {
                     if (mazeMatrix[sX + 1][sY] == 1) {
                         mazeMatrix[sX][sY] = 2;
                         sX++;
@@ -153,7 +155,7 @@ public class Maze {
                     }
 
                 }
-                if (sY <= labSize - 2) {
+                if (sY <= labSizeH - 2) {
                     if (mazeMatrix[sX][sY + 1] == 1) {
                         mazeMatrix[sX][sY] = 2;
                         sY++;
@@ -232,7 +234,7 @@ public class Maze {
                 rnd--;
             }
         }
-        if (sX <= labSize - 2) {
+        if (sX <= labSizeW - 2) {
             if (mazeMatrix[sX + 2][sY] == 0) {//2
                 if (rnd == 0) {
                     return 2;
@@ -248,7 +250,7 @@ public class Maze {
                 rnd--;
             }
         }
-        if (sY <= labSize - 2) {
+        if (sY <= labSizeH - 2) {
             if (mazeMatrix[sX][sY + 2] == 0) {//3
                 if (rnd == 0) {
                     return 3;

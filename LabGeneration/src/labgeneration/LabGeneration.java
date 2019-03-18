@@ -16,13 +16,15 @@ import java.util.logging.Logger;
  * @author Murad Salmanov
  */
 public class LabGeneration{
-    int lab=40;
-    int labSize=lab*2+1;
-    int cellSize=8;
+    int labW=10;
+    int labH=5;
+    int labSizeW=labW*2+1;
+     int labSizeH=labH*2+1;
+    int cellSize=16;
     int dx=6,dy=30;
-    int width=labSize*cellSize+dx;
-    int height=labSize*cellSize+dy;
-    int [][] matrix=new int [labSize][labSize];
+    int width=labSizeW*cellSize+dx;
+    int height=labSizeH*cellSize+dy;
+    int [][] matrix=new int [labSizeW][labSizeH];
     
     WindowForm wf;
     GraphicPanel graphicPanel; 
@@ -30,9 +32,9 @@ public class LabGeneration{
     
     public LabGeneration(){
          wf=new WindowForm(width, height, "Lberint");
-         maze=new Maze(lab);
+         maze=new Maze(labSizeW,labSizeH);
          matrix=maze.getMazeMatrix();
-         graphicPanel=new GraphicPanel(labSize, cellSize,matrix);
+         graphicPanel=new GraphicPanel(labSizeW,labSizeH, cellSize,matrix);
          wf.add(graphicPanel);
          wf.setVisible(true);
          wf.addMouseListener(new MouseAdapter() {

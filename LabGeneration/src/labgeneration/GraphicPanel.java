@@ -13,7 +13,8 @@ import javax.swing.JPanel;
 
 public class GraphicPanel extends JPanel implements Runnable {
 
-    public int fSize;
+    public int fSizeW;
+    public int fSizeH;
     public int bSize;
     private int[][] matrix;
     Color bachgroundColor = new Color(0, 0, 0);
@@ -25,19 +26,27 @@ public class GraphicPanel extends JPanel implements Runnable {
 
     public GraphicPanel(int fSize, int bSize, int[][] matrix) {
         this.matrix = matrix;
-        this.fSize = fSize;
+        this.fSizeW = fSize;
+        this.fSizeH = fSize;
         this.bSize = bSize;
 
         t.start();
     }
+ public GraphicPanel(int fSizeW,int fSizeH, int bSize, int[][] matrix) {
+        this.matrix = matrix;
+        this.fSizeW = fSizeW;
+        this.fSizeH = fSizeH;
+        this.bSize = bSize;
 
+        t.start();
+    }
     @Override
     public void paint(Graphics g) {
-        int width = fSize * bSize;
-        int height = fSize * bSize;
+        int width = fSizeW * bSize;
+        int height = fSizeH * bSize;
         int cell = 0;
-        for (int x = 0; x < fSize; x++) {
-            for (int y = 0; y < fSize; y++) {
+        for (int x = 0; x < fSizeW; x++) {
+            for (int y = 0; y < fSizeH; y++) {
                 cell = matrix[x][y];
                 //cell=0 emty cell
                 //cell=1 step cell
